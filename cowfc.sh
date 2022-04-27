@@ -66,7 +66,7 @@ IP=""             # Used for user input
 interface=""      # Used for user input
 mod1="proxy"      # This is a proxy mod that is dependent on the other 2
 mod2="proxy_http" # This is related to mod1
-mod3="php7.1"
+mod3="php7.4"
 UPDATE_FILE="$0.tmp"
 UPDATE_BASE="https://raw.githubusercontent.com/EnergyCube/cowfc_installer/master/cowfc.sh"
 # Functions
@@ -272,28 +272,28 @@ function install_required_packages() {
     echo "echo "Installing required packages...""
     # Add required package requires packages
     sudo apt install curl git net-tools dnsmasq -y
-    # Add PHP 7.1 repo
-    if [ ! -f "/var/www/.php71-added" ]; then
-        echo "Adding the PHP 7.1 repository. Please follow any prompts."
-        if ! add-apt-repository ppa:ondrej/php; then
+    # Add PHP 7.4 repo
+    if [ ! -f "/var/www/.php74-added" ]; then
+        echo "Adding the PHP 7.4 repository. Please follow any prompts."
+        if ! add-apt-repository ppa:jczaplicki/xenial-php74-temp; then
             apt-get install --force-yes software-properties-common python-software-properties -y
-            add-apt-repository ppa:ondrej/php
+            add-apt-repository ppa:jczaplicki/xenial-php74-temp
         fi
         sleep 2s
         echo "Creating file to tell the script you already added the repo"
-        touch "/var/www/.php71-added"
+        touch "/var/www/.php74-added"
         echo "I will now reboot your server to free up resources for the next phase"
         sleep 3s
         reboot
         exit
     else
-        echo "The PHP 7.1 repo is already added. If you believe this to ben an error, please type 'rm -rf /var/www/.php71-added' to remove the file which prevents the repository from being added again."
+        echo "The PHP 7.4 repo is already added. If you believe this to be an error, please type 'rm -rf /var/www/.php74-added' to remove the file which prevents the repository from being added again."
     fi
     # Fix dpkg problems that happened somehow
     dpkg --configure -a
-    echo "Updating & installing PHP 7.1 onto your system..."
+    echo "Updating & installing PHP 7.4 onto your system..."
     apt-get update
-    apt-get install --force-yes php7.1 -y
+    apt-get install --force-yes php7.4 -y
     # Install the other required packages
     apt-get install --force-yes apache2 python2.7 python-twisted dnsmasq git curl -y
 }
@@ -483,7 +483,7 @@ if [ "$CANRUN" == "TRUE" ]; then
         # Let's set up Apache now
         create_apache_vh_nintendo
         create_apache_vh_wiimmfi
-        apache_mods     # Enable reverse proxy mod and PHP 7.1
+        apache_mods     # Enable reverse proxy mod and PHP 7.4
         install_website # Install the web contents for CoWFC
         config_mysql    # We will set up the mysql password as "passwordhere" and create our first user
         re              # Set up reCaptcha
@@ -511,7 +511,7 @@ EOF
     # DO NOT PUT COMMANDS UNDER THIS FI
     fi
 else
-    echo "Sorry, you do not appear to be running a supported Opperating System."
+    echo "Sorry, you do not appear to be running a supported Operating System."
     echo "Please make sure you are running Ubuntu 14.04, Ubuntu 16.04 and Ubuntu 20.04, and try again!"
     exit 1
 fi
