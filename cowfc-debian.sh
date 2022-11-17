@@ -267,24 +267,35 @@ function install_required_packages() {
 
     # Install Minimal Requirements
     apt install -y curl git net-tools dnsmasq apache2 software-properties-common
+    read -p "Press any key to resume ..."
 
     # Install Python
     apt install -y python3-software-properties python2.7 python-twisted
+    read -p "Press any key to resume ..."
 
     # Add php7.4 repo
     apt -y install lsb-release apt-transport-https ca-certificates
+    read -p "Press any key to resume ..."
     wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+    read -p "Press any key to resume ..."
     echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
+    read -p "Press any key to resume ..."
     # Refresh
     apt update
+    read -p "Press any key to resume ..."
     # Install php7.4
     apt -y install php7.4
+    read -p "Press any key to resume ..."
 
     # Install MySQL (MariaDB)
     apt update
+    read -p "Press any key to resume ..."
     apt -y install mariadb-server
+    read -p "Press any key to resume ..."
     apt -y install php7.4-mysql
+    read -p "Press any key to resume ..."
     apt -y install sqlite php7.4-sqlite3
+    read -p "Press any key to resume ..."
     # apt -y install mysql-server
 }
 
