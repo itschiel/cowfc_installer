@@ -294,7 +294,7 @@ function install_required_packages() {
     read -p "Press any key to resume ..."
     apt -y install php7.4-mysql
     read -p "Press any key to resume ..."
-    apt -y install sqlite php7.4-sqlite3
+    apt -y install sqlite3 php7.4-sqlite3
     read -p "Press any key to resume ..."
     # apt -y install mysql-server
 }
