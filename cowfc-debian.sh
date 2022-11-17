@@ -270,7 +270,7 @@ function install_required_packages() {
     read -p "Press any key to resume ..."
 
     # Install Python
-    apt install -y python3-software-properties python2.7 python-twisted
+    apt install -y python3-software-properties python3 python3-twisted
     read -p "Press any key to resume ..."
 
     # Add php7.4 repo
